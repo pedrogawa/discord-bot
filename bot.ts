@@ -39,7 +39,7 @@ client.on(Events.MessageCreate, (message) => {
       );
     } else {
       message.reply(
-        "You don't have an active session. Type !start to start one."
+        "You don't have an active session. Type !start to start one session."
       );
     }
   }
