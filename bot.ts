@@ -48,7 +48,7 @@ client.on(Events.MessageCreate, (message) => {
     if (user) {
       message.reply(
         "```You have the following tasks:\n - " +
-          user.todo.join("\n - ") +
+          user.todo.join("\n [] ") +
           "```"
       );
     } else {
