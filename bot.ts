@@ -42,6 +42,37 @@ client.on(Events.MessageReactionAdd, async (reaction, user) => {
 
 client.on(Events.MessageCreate, (message) => {
   const id = message.author.id;
+  const user = activeUsers.find((user) => user.id === id);
+
+  if (message.content === "!todo") {
+    if (user) {
+      message.reply(
+        "```You have the following tasks:\n - " +
+          user.todo.join("\n - ") +
+          "```"
+      );
+    } else {
+      message.reply("You don't have a todo list.");
+    }
+  }
+
+  if (message.content.startsWith("!todo add")) {
+    const task = message.content.replace("!todo add ", "");
+
+    if (user) {
+      message.reply(`Added ${task} to your todo list.`);
+      user.todo.push(task);
+    } else {
+      activeUsers.push({
+        id,
+        todo: [task],
+      });
+    }
+  }
+});
+
+client.on(Events.MessageCreate, (message) => {
+  const id = message.author.id;
   const { createdTimestamp } = message;
   const user = activeUsers.find((user) => user.id === id);
 
